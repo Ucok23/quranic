@@ -4,6 +4,8 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 
+import { Box } from '@mui/system';
+import { Card, CardActions, CardContent, Button, Typography, CircularProgress } from '@mui/material';
 
 const quranRandomizer = 'http://quran-randomizer.herokuapp.com/'
 const getAyah = async () => {
@@ -14,14 +16,27 @@ const getAyah = async () => {
 const Ayah = () => {
   const { data, error } = useSWR(quranRandomizer, getAyah);
   if (error) return <div>Failed to load</div>
-  if (!data)return <div>Loading ....</div>
+  if (!data)return <CircularProgress/>
 
   const { resources } = data;
 
   return (
-    <div>
-      <p>{resources.nameOfSurah.transliteration.id} : {resources.numberOfAyah}</p> 
-    </div>
+    <Card sx={{ minWidth: 275 }}>
+      <CardContent>
+        <Typography sx={{ fontSize: 14 }}>
+          {resources.nameOfSurah.transliteration.id} : {resources.numberOfAyah}
+        </Typography>
+        <Typography variant="h5" component="div" align='right'>
+          {resources.ayah.text.arab}
+        </Typography>
+        <Typography sx={{ mb: 1.5 }} color="text.secondary">
+          {resources.ayah.translation.id}
+        </Typography>
+      </CardContent>
+      <CardActions>
+        <Button size="small">Learn More</Button>
+      </CardActions>
+    </Card>
   )
 }
 
@@ -35,7 +50,10 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
-        <Ayah />
+        <Box sx={{ width: '80%',
+                  margin:'auto'}}>
+          <Ayah />
+        </Box>
       </main>
 
       <footer className={styles.footer}>
