@@ -5,7 +5,8 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 
 import { Box } from '@mui/system';
-import { Card, CardActions, CardContent, Button, Typography, CircularProgress } from '@mui/material';
+import { Card, CardContent, Typography, Skeleton, IconButton, Stack } from '@mui/material';
+import ReplayCircleFilledIcon from '@mui/icons-material/ReplayCircleFilled';
 
 const quranRandomizer = 'http://quran-randomizer.herokuapp.com/'
 const getAyah = async () => {
@@ -14,28 +15,32 @@ const getAyah = async () => {
 }
 
 const Ayah = () => {
-  const { data, error } = useSWR(quranRandomizer, getAyah);
-  if (error) return <div>Failed to load</div>
-  if (!data)return <CircularProgress/>
+  const { data, error, mutate, isValidating } = useSWR(quranRandomizer, getAyah);
 
-  const { resources } = data;
+  function handleClick() {
+    mutate(quranRandomizer)
+  }
 
   return (
     <Card sx={{ minWidth: 275 }}>
-      <CardContent>
-        <Typography sx={{ fontSize: 14 }}>
-          {resources.nameOfSurah.transliteration.id} : {resources.numberOfAyah}
-        </Typography>
-        <Typography variant="h5" component="div" align='right'>
-          {resources.ayah.text.arab}
-        </Typography>
-        <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          {resources.ayah.translation.id}
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Button size="small">Learn More</Button>
-      </CardActions>
+      { isValidating ? <Skeleton /> :
+        <CardContent>
+          <Typography sx={{ fontSize: 14, mb: 2 }}>
+            {data.resources.nameOfSurah.transliteration.id} : {data.resources.numberOfAyah}
+          </Typography>
+          <Typography variant="h5" component="div" align='right'>
+            {data.resources.ayah.text.arab}
+          </Typography>
+          <Typography sx={{ mb: 1.5 }} color="text.secondary">
+            {data.resources.ayah.translation.id}
+          </Typography>
+        </CardContent>
+      }
+      <Stack spacing={3}>
+          <IconButton size="large" onClick={handleClick} aria-label='refresh' color='success'>
+              <ReplayCircleFilledIcon fontSize='inherit'/>
+          </IconButton>
+      </Stack>
     </Card>
   )
 }
