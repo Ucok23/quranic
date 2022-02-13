@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 import useSWR from 'swr';
 import CardAyah from '../components/ayahCard'
 import Box from '@mui/material/Box';
-import { AyahInterface } from '../components/ayahInterface';
+import { AyahInterface } from '../model/ayahInterface';
 
 const quranRandomizer = 'http://quran-randomizer.herokuapp.com/'
 const getAyah = async () => {

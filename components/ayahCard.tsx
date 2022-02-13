@@ -15,7 +15,7 @@ import 'react-h5-audio-player/lib/styles.css';
 import React from 'react'
 
 // this package
-import { AyahInterface } from "./ayahInterface";
+import { AyahInterface } from "../model/ayahInterface";
 
 const QS = ({ isLoading, surah, ayah }: AyahInterface) => {
     return (
