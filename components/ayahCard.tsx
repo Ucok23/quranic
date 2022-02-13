@@ -1,9 +1,21 @@
-import { Card, CardContent, Skeleton, Typography, IconButton, Stack } from "@mui/material"
+// mui
+import Card from '@mui/material/Card';
+import Skeleton from '@mui/material/Skeleton';
+import Typography from '@mui/material/Typography';
+import CardContent from '@mui/material/CardContent';
+import Stack from '@mui/material/Stack';
+import IconButton from '@mui/material/IconButton';
 import ReplayCircleFilledIcon from '@mui/icons-material/ReplayCircleFilled';
-import AudioPlayer from '../components/audioPlayer';
-import { AyahInterface } from "./ayahInterface";
 
+// react-h5-audio-player
+import AudioPlayer from 'react-h5-audio-player';
+import 'react-h5-audio-player/lib/styles.css';
+
+// react
 import React from 'react'
+
+// this package
+import { AyahInterface } from "./ayahInterface";
 
 const QS = ({ isLoading, surah, ayah }: AyahInterface) => {
     return (
@@ -32,9 +44,11 @@ const AyahText = ({ isLoading, arab, translate }: AyahInterface) => {
 }
 
 const AyahAudio = ({ isLoading, audioSrc }: AyahInterface) => {
+    const source = audioSrc ? audioSrc : '';
     return (
-        isLoading ? <Skeleton /> :
-        <AudioPlayer url={audioSrc}/>
+        isLoading ? <Skeleton /> : 
+        <AudioPlayer 
+            src={source}/>
     )
 }
 

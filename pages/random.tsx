@@ -1,7 +1,7 @@
 import type { NextPage } from 'next'
 import useSWR from 'swr';
 import CardAyah from '../components/ayahCard'
-import { Box } from '@mui/material';
+import Box from '@mui/material/Box';
 import { AyahInterface } from '../components/ayahInterface';
 
 const quranRandomizer = 'http://quran-randomizer.herokuapp.com/'
@@ -10,7 +10,7 @@ const getAyah = async () => {
   return await response.json();
 }
 const RandomAyah = () => {
-    const { data, mutate, isValidating } = useSWR(quranRandomizer, getAyah);
+    const { data, mutate, isValidating } = useSWR(quranRandomizer,getAyah, { revalidateOnFocus: false });
 
     function handleClick() {
         mutate(quranRandomizer)
@@ -35,10 +35,6 @@ const RandomAyah = () => {
 }
 
 const Random: NextPage = () => {
-    const control = {
-        isPlaying: false,
-        onPlayPauseClick: () => true
-    }
 
     return (
         <Box sx={{ width: '80%',
