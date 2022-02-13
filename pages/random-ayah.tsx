@@ -1,7 +1,9 @@
 import type { NextPage } from 'next'
 import useSWR from 'swr';
-import CardAyah from '../components/ayahCard'
+import CardAyah from '../components/ayahCard';
 import Box from '@mui/material/Box';
+import styles from '../styles/Home.module.css'
+
 import { AyahInterface } from '../model/ayahInterface';
 
 const quranRandomizer = 'http://quran-randomizer.herokuapp.com/'
@@ -29,7 +31,9 @@ const RandomAyah = () => {
     }
 
     return (
+        <>
         <CardAyah {...ayahcontent} />
+        </>
     )
 
 }
@@ -37,9 +41,17 @@ const RandomAyah = () => {
 const Random: NextPage = () => {
 
     return (
-        <Box sx={{ width: '80%',
-                   margin:'auto'}}>
-            <RandomAyah />
+        <Box
+            sx={{
+                width: '100%',
+                height: '100%'
+            }}>
+            <Box sx={{
+                display: 'flex',
+                justifyContent: 'center',
+            }}>
+                <RandomAyah />
+            </Box>        
         </Box>
     )
 }

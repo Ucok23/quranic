@@ -71,7 +71,18 @@ const CardAyahContent = (ayahcontent: AyahInterface) => {
 
 const CardAyah = (ayahcontent: AyahInterface) => {
     return (
-        <Card sx={{ minWidth: 275 }}>
+        <Card sx={{ width: {
+                        xs: '90%',
+                        sm: '80%',
+                        md: '60%',
+                        lg: '50%'},
+                    margin: {
+                        xs: 1,
+                        sm: 2,
+                        md: 3,
+                        lg: 4
+                    }
+                }}>
             <CardAyahContent {...ayahcontent} />
         </Card>
     )
